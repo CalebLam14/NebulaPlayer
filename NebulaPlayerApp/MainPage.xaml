@@ -1,0 +1,42 @@
+﻿<Page
+    x:Class="NebulaPlayerApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:NebulaPlayerApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+        <NavigationView x:Name="nvTabs" PaneDisplayMode="Top" ItemInvoked="nvTabs_ItemInvoked" IsSettingsVisible="False">
+            <NavigationView.MenuItems>
+                <NavigationViewItem x:Name="nviBands" Content="Bands &amp; Albums" Tag="people">
+                    <NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="People"></SymbolIcon>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+
+                <NavigationViewItem x:Name="nviMedias" Content="Your Media" Tag="media">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon UriSource="/Assets/MovieRollTape.png"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+
+                <NavigationViewItem x:Name="nviPlayer" Content="Player" IsSelected="True" Tag="player">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon UriSource="/Assets/PlayButton.png"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+
+            <Frame x:Name="frMainContent" Margin="0" Navigated="frMainContent_Navigated" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition/>
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
+        </NavigationView>
+    </Grid>
+    
+</Page>

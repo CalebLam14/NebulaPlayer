@@ -1,0 +1,57 @@
+﻿<Page x:Name="pgYourMedia"
+    x:Class="NebulaPlayerApp.YourMediaPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:dataclasses="using:NebulaPlayerApp.DataClasses"
+      xmlns:nb="using:NebulaPlayerApp"
+      mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" NavigationCacheMode="Disabled" Loading="pgYourMedia_Loading">
+    <Page.Resources>
+        <dataclasses:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Page.Resources>
+    <Grid>
+        <ListView x:Name="lstMedia" Margin="0,40,0,0" ItemsSource="{x:Bind mediaDataItems}" SelectionMode="Single" SelectionChanged="lstMedia_SelectionChanged">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="dataclasses:NBMediaDataItem">
+                    <Grid Width="Auto">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="9*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="48"/>
+                        </Grid.ColumnDefinitions>
+                        <BitmapIcon Grid.Column="0" Grid.RowSpan="2" UriSource="{x:Bind IconUri}" Width="36" Height="36" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="1" Text="{x:Bind Name}" Margin="12,6,0,0" Style="{ThemeResource BaseTextBlockStyle}"/>
+                        <TextBlock  Grid.Column="1" Grid.Row="1" Text="{x:Bind Path}" Margin="12,0,0,6" Style="{ThemeResource BodyTextBlockStyle}"/>
+
+                        <Button x:Name="btnPlayMedia" Grid.RowSpan="2" Grid.Column="3" Width="36" Height="36" HorizontalAlignment="Right" Visibility="{x:Bind IsSelected, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" Click="btnPlayMedia_Click">
+                            <SymbolIcon Symbol="Play" Margin="-4"></SymbolIcon>
+                        </Button>
+
+                        <Button x:Name="btnDeleteMedia" Grid.RowSpan="2" Grid.Column="2" Width="36" Height="36" HorizontalAlignment="Center" Visibility="{x:Bind IsSelected, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" Click="btnDeleteMedia_Click">
+                            <SymbolIcon Symbol="Delete" Margin="-4"></SymbolIcon>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <CommandBar x:Name="cmdMediaCommands" DefaultLabelPosition="Right" OverflowButtonVisibility="Collapsed">
+            <CommandBar.Content>
+                <Grid/>
+            </CommandBar.Content>
+            <AppBarButton Icon="Import" x:Name="btnImport" Label="Import Media" Click="btnImport_Click"/>
+            <AppBarButton Icon="Cancel" x:Name="btnClearList" Label="Clear List" Click="btnClearList_Click" />
+        </CommandBar>
+    </Grid>
+</Page>
